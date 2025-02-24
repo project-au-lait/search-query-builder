@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>sqb-jpa</artifactId>
+
+  <dependencies>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>sqb-core</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.persistence</groupId>
+      <artifactId>jakarta.persistence-api</artifactId>
+      <version>3.1.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>2.0.7</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.hibernate.orm</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>6.6.3.Final</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jul-to-slf4j</artifactId>
+      <version>2.0.7</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.4.7</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <parent>
+    <groupId>dev.aulait.sqb</groupId>
+    <artifactId>search-query-builder</artifactId>
+    <version>0.8-SNAPSHOT</version>
+    <relativePath>../</relativePath>
+  </parent>
+
+
+  <build>
+    <testResources>
+      <testResource>
+        <directory>src/test/resources</directory>
+        <filtering>true</filtering>
+      </testResource>
+    </testResources>
+
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>3.2.0</version>
+        <executions>
+          <execution>
+            <id>add-test-source</id>
+            <phase>generate-test-sources</phase>
+            <goals>
+              <goal>add-test-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>${project.basedir}/src/gen/java</source>
+              </sources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>gen-entity</id>
+
+      <build>
+        <defaultGoal>process-resources jpa-entity-generator:reverse clean install</defaultGoal>
+
+        <plugins>
+          <plugin>
+            <groupId>dev.aulait.jeg</groupId>
+            <artifactId>jpa-entity-generator-maven-plugin</artifactId>
+            <version>0.11</version>
+            <configuration>
+              <configFilePath>src/tool/jeg-config.yml</configFilePath>
+              <jdbcUrl>${db.jdbc.url}</jdbcUrl>
+              <jdbcUsername>${db.username}</jdbcUsername>
+              <jdbcPassword>${db.password}</jdbcPassword>
+              <outputDir>${project.basedir}/src/gen/java</outputDir>
+            </configuration>
+            <dependencies>
+              <dependency>
+                <groupId>${db.jdbc.groupId}</groupId>
+                <artifactId>${db.jdbc.artifactId}</artifactId>
+                <version>${db.jdbc.version}</version>
+              </dependency>
+            </dependencies>
+            <executions>
+              <execution>
+                <id>reverse</id>
+                <goals>
+                  <goal>reverse</goal>
+                </goals>
+                <phase>process-resources</phase>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>

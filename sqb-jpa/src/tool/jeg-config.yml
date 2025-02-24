@@ -1,0 +1,7 @@
+packages:
+  dev.aulait.sqb.jpa:
+    - depertment
+    - employee
+excludedTables:
+  - flyway_schema_history
+formatter: google

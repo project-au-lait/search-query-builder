@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>dev.aulait.sqb</groupId>
+  <artifactId>search-query-builder</artifactId>
+  <version>0.8-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.36</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.microprofile.openapi</groupId>
+      <artifactId>microprofile-openapi-api</artifactId>
+      <version>3.1.2</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-params</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>${db.jdbc.groupId}</groupId>
+      <artifactId>${db.jdbc.artifactId}</artifactId>
+      <version>${db.jdbc.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>5.11.4</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <modules>
+    <module>sqb-container</module>
+    <module>sqb-core</module>
+    <module>sqb-jpa</module>
+  </modules>
+
+  <properties>
+    <db.dbms>postgres</db.dbms>
+    <db.healthcheck>pg_isready -d postgres -U postgres</db.healthcheck>
+    <db.image>postgres</db.image>
+    <db.jdbc.groupId>org.postgresql</db.jdbc.groupId>
+    <db.jdbc.artifactId>postgresql</db.jdbc.artifactId>
+    <db.jdbc.version>42.7.2</db.jdbc.version>
+    <db.jdbc.url>jdbc:postgresql://${db.host}:${db.port.host}/${db.name}?currentSchema=${db.schema}</db.jdbc.url>
+    <db.password>sqb</db.password>
+    <db.host>localhost</db.host>
+    <db.name>sqb</db.name>
+    <db.port.host>5452</db.port.host>
+    <db.port.container>5432</db.port.container>
+    <db.schema>sqb</db.schema>
+    <db.username>sqb</db.username>
+
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+  </properties>
+
+</project>

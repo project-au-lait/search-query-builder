@@ -1,0 +1,52 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "setup-db",
+      "type": "shell",
+      "osx": {
+        "command": "./mvnw"
+      },
+      "windows": {
+        "command": ".\\mvnw"
+      },
+      "args": ["-f", "sqb-container", "-P", "setup-db"],
+      "problemMatcher": [],
+      "runOptions": {
+        "runOn": "folderOpen"
+      }
+    },
+    {
+      "label": "migrate-db",
+      "type": "shell",
+      "osx": {
+        "command": "./mvnw"
+      },
+      "windows": {
+        "command": ".\\mvnw"
+      },
+      "args": ["-f", "sqb-container", "-P", "migrate-db"],
+      "problemMatcher": []
+    },
+    {
+      "label": "gen-entity",
+      "type": "shell",
+      "osx": {
+        "command": "./mvnw"
+      },
+      "windows": {
+        "command": ".\\mvnw"
+      },
+      "linux": {
+        "command": "./mvnw"
+      },
+      "args": ["-f", "sqb-jpa", "-P", "gen-entity", "-e"],
+      "options": {
+        "env": {
+          "MAVEN_OPTS": "--add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED --add-exports=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED --add-exports=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED --add-exports=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED --add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED --add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED"
+        }
+      },
+      "problemMatcher": []
+    }
+  ]
+}

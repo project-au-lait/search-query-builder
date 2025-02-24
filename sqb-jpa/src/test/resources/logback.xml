@@ -1,0 +1,22 @@
+<configuration>
+
+  <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+    <resetJUL>true</resetJUL>
+  </contextListener>
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} %-5.5level [%-5.5thread] %-50.50logger{36} - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <logger name="dev.aulait.sqb" level="DEBUG" />
+  <logger name="org.hibernate.orm.jdbc.bind" level="TRACE" />
+  <!-- <logger name="org.hibernate.orm.jdbc.extract" level="TRACE" /> -->
+  <logger name="org.postgresql" level="INFO" />
+  <logger name="org.thymeleaf" level="INFO" />
+
+  <root level="INFO">
+    <appender-ref ref="STDOUT" />
+  </root>
+</configuration>

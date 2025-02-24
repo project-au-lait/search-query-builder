@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <!-- The Basics -->
+  <artifactId>sqb-container</artifactId>
+
+  <properties>
+    <maven.deploy.skip>true</maven.deploy.skip>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.flywaydb</groupId>
+      <artifactId>flyway-maven-plugin</artifactId>
+      <version>10.9.1</version>
+    </dependency>
+  </dependencies>
+
+  <parent>
+    <groupId>dev.aulait.sqb</groupId>
+    <artifactId>search-query-builder</artifactId>
+    <version>0.8-SNAPSHOT</version>
+  </parent>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+        <includes>
+          <include>.env</include>
+        </includes>
+        <targetPath>${project.basedir}</targetPath>
+      </resource>
+    </resources>
+
+    <plugins>
+      <plugin>
+        <groupId>org.flywaydb</groupId>
+        <artifactId>flyway-maven-plugin</artifactId>
+        <version>10.9.1</version>
+        <configuration>
+          <configFiles>src/main/resources/flyway.conf</configFiles>
+          <cleanDisabled>false</cleanDisabled>
+          <password>${db.password}</password>
+          <schemas>${db.schema}</schemas>
+          <user>${db.username}</user>
+          <url>${db.jdbc.url}</url>
+          <validateOnMigrate>false</validateOnMigrate>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-database-postgresql</artifactId>
+            <version>10.9.0</version>
+          </dependency>
+          <dependency>
+            <groupId>${db.jdbc.groupId}</groupId>
+            <artifactId>${db.jdbc.artifactId}</artifactId>
+            <version>${db.jdbc.version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>init</id>
+
+      <properties>
+        <artifact>${db.jdbc.groupId}:${db.jdbc.artifactId}:${db.jdbc.version}</artifact>
+      </properties>
+
+      <build>
+        <defaultGoal>dependency:copy</defaultGoal>
+      </build>
+    </profile>
+
+    <profile>
+      <id>setup-db</id>
+
+      <build>
+        <defaultGoal>compile</defaultGoal>
+
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>3.4.0</version>
+            <configuration>
+              <executable>docker</executable>
+              <commandlineArgs>compose up -d --wait dbms</commandlineArgs>
+            </configuration>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <phase>compile</phase>
+              </execution>
+            </executions>
+          </plugin>
+
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <id>migrate-db</id>
+
+      <build>
+        <defaultGoal>compile</defaultGoal>
+
+        <plugins>
+          <plugin>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>clean</goal>
+                  <goal>migrate</goal>
+                  <goal>info</goal>
+                </goals>
+                <phase>compile</phase>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <id>down-db</id>
+
+      <build>
+        <defaultGoal>compile</defaultGoal>
+
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>3.4.0</version>
+            <configuration>
+              <executable>docker</executable>
+              <commandlineArgs>compose down --rmi local -v</commandlineArgs>
+            </configuration>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <phase>compile</phase>
+              </execution>
+            </executions>
+          </plugin>
+
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>
