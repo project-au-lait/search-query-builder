@@ -57,7 +57,12 @@ public class SearchQueryBuilder {
 
       sb.append(operator.getValue() + " " + toParamName());
 
-      queryParams.add(toValue(operator, fieldCriterion.getValue()));
+      String correction = getCorrection(operator);
+      if (StringUtils.isNotEmpty(correction)) {
+        sb.append(" " + correction);
+      }
+
+      queryParams.add(fieldCriterion.getValue());
     }
 
     return sb.toString();
@@ -74,14 +79,8 @@ public class SearchQueryBuilder {
             .collect(Collectors.joining(","));
   }
 
-  Object toValue(ComparisonOperator operator, Object value) {
-    switch (operator) {
-      case LIKE:
-        return "%" + value + "%";
-
-      default:
-        return value;
-    }
+  protected String getCorrection(ComparisonOperator operator) {
+    return "";
   }
 
   protected String toParamName() {
