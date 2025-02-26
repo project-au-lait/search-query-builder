@@ -86,8 +86,8 @@
   </properties>
 
   <!-- More Project Information -->
-  <name>jpa-entity-generator</name>
-  <description>JPA Entity Generator</description>
+  <name>search-query-builder</name>
+  <description>Search Query Builder</description>
   <url>https://aulait.dev</url>
   <licenses>
     <license>
@@ -195,7 +195,6 @@
             <configuration>
               <publishingServerId>central</publishingServerId>
               <autoPublish>true</autoPublish>
-              <excludeArtifacts>jpa-entity-generator-docs,jpa-entity-generator-db</excludeArtifacts>
             </configuration>
           </plugin>
         </plugins>
