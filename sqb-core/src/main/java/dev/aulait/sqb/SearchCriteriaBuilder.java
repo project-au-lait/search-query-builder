@@ -38,6 +38,10 @@ public class SearchCriteriaBuilder {
       ComparisonOperator comparisonOperator,
       Object value) {
 
+    if (comparisonOperator == ComparisonOperator.LIKE && value instanceof String str) {
+      value = '%' + str + '%';
+    }
+
     fields.add(
         FieldCriteria.builder()
             .logicalOperator(logicalOperator)
