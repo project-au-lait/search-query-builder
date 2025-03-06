@@ -45,7 +45,7 @@ public class LikePattern {
    * LIKE clause.
    *
    * @param messageFormatPattern message format pattern e.g. "%{0}_{1}_{2}%"
-   * @param value value to be evaluated
+   * @param values value to be evaluated
    * @return LikePattern
    * @see MessageFormat#format(String, Object...)
    */
