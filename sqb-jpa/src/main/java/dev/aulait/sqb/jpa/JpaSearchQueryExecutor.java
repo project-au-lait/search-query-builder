@@ -1,5 +1,6 @@
 package dev.aulait.sqb.jpa;
 
+import dev.aulait.sqb.LikePattern;
 import dev.aulait.sqb.PageResult;
 import dev.aulait.sqb.SearchCriteria;
 import dev.aulait.sqb.SearchResult;
@@ -72,7 +73,11 @@ public class JpaSearchQueryExecutor {
 
   private void setQueryParams(Query query, List<Object> params) {
     for (int i = 0; i < params.size(); i++) {
-      query.setParameter(i + 1, params.get(i));
+      Object param = params.get(i);
+      if (param instanceof LikePattern) {
+        param = param.toString();
+      }
+      query.setParameter(i + 1, param);
     }
   }
 }
