@@ -1,7 +1,5 @@
 package dev.aulait.sqb;
 
-import java.util.ArrayList;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,8 +20,6 @@ public class PageControl {
   private int pageNumber = 1;
 
   @Builder.Default private int pageNumsRange = 2;
-
-  @Builder.Default private List<SortOrder> sortOrders = new ArrayList<>();
 
   public int getOffset() {
     return (pageNumber - 1) * pageSize;
