@@ -56,8 +56,10 @@ public class SearchCriteriaBuilder {
 
   public SearchCriteria build(PageControl pageControl, List<SortOrder> sortOrders) {
     List<SortOrder> so = new ArrayList<>();
-    if (defaultOrder != null && sortOrders == null) {
+    if (defaultOrder != null && (sortOrders == null || sortOrders.isEmpty())) {
       so.add(defaultOrder);
+    } else {
+      so = sortOrders;
     }
 
     return SearchCriteria.builder()
