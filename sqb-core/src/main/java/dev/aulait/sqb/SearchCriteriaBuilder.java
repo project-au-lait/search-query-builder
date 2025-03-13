@@ -70,4 +70,8 @@ public class SearchCriteriaBuilder {
         .sortOrders(sortOrders)
         .build();
   }
+
+  public SearchCriteria build() {
+    return build(null);
+  }
 }
