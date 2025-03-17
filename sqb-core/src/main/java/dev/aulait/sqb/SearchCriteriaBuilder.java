@@ -8,7 +8,7 @@ public class SearchCriteriaBuilder {
   private StringBuilder select = new StringBuilder();
   private String selectCount;
   private List<FieldCriteria> fields = new ArrayList<>();
-  private SortOrder defaultOrder;
+  private List<SortOrder> sortOrders = new ArrayList<>();
 
   public SearchCriteriaBuilder select(String select) {
     if (this.select.length() > 0) {
@@ -50,30 +50,28 @@ public class SearchCriteriaBuilder {
   }
 
   public SearchCriteriaBuilder defaultOrderBy(String field, boolean asc) {
-    this.defaultOrder = SortOrder.builder().field(field).asc(asc).build();
+    sortOrders.add(SortOrder.builder().field(field).asc(asc).build());
     return this;
   }
 
-  public SearchCriteria build(PageControl pageControl, List<SortOrder> sortOrders) {
-    List<SortOrder> so = new ArrayList<>();
-    if (defaultOrder != null && sortOrders == null) {
-      so.add(defaultOrder);
+  public SearchCriteriaBuilder orderBy(List<SortOrder> sortOrders) {
+    if (sortOrders != null && !sortOrders.isEmpty()) {
+      this.sortOrders = sortOrders;
     }
+    return this;
+  }
 
+  public SearchCriteria build(PageControl pageControl) {
     return SearchCriteria.builder()
         .select(select.toString())
         .selectCount(selectCount)
         .fieldCriteria(fields)
         .pageControl(pageControl)
-        .sortOrders(so)
+        .sortOrders(sortOrders)
         .build();
   }
 
-  public SearchCriteria build(PageControl pageControl) {
-    return build(pageControl, null);
-  }
-
   public SearchCriteria build() {
-    return build(null, null);
+    return build(null);
   }
 }
