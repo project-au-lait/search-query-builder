@@ -51,7 +51,7 @@ public class SearchCriteriaBuilder {
    * @param field the field to add to the WHERE clause
    * @param value the value to compare the field with
    * @return this builder instance
-   * @see {@link #where(LogicalOperator, String, ComparisonOperator, Object)}
+   * @see #where(LogicalOperator, String, ComparisonOperator, Object)
    */
   public SearchCriteriaBuilder where(String field, Object value) {
     return where(field, ComparisonOperator.EQ, value);
@@ -67,7 +67,7 @@ public class SearchCriteriaBuilder {
    * @param comparisonOperator the comparison operator to use
    * @param value the value to compare the field with
    * @return this builder instance
-   * @see {@link #where(LogicalOperator, String, ComparisonOperator, Object)}
+   * @see #where(LogicalOperator, String, ComparisonOperator, Object)
    */
   public SearchCriteriaBuilder where(
       String field, ComparisonOperator comparisonOperator, Object value) {
@@ -111,7 +111,7 @@ public class SearchCriteriaBuilder {
    * @param field the field to add to the ORDER BY clause
    * @param asc true if the field should be sorted in ascending order, false for descending order
    * @return this builder instance
-   * @see {@link #orderBy(List)}
+   * @see #orderBy(List)
    */
   public SearchCriteriaBuilder defaultOrderBy(String field, boolean asc) {
     sortOrders.add(SortOrder.builder().field(field).asc(asc).build());
@@ -135,8 +135,8 @@ public class SearchCriteriaBuilder {
    * Build the SearchCriteria object. This method is used to create a SearchCriteria object that
    * contains the SQL/JPQL SELECT statement, the WHERE clause, and the ORDER BY clause.
    *
-   * <p>If you're using SQB with JPA, the SearchCriteria object is executed by the {@link
-   * JpaSearchQueryExecutor}.
+   * <p>If you're using SQB with JPA, the SearchCriteria object is executed by the
+   * JpaSearchQueryExecutor.
    *
    * @param pageControl the PageControl object that contains the pagination information.
    * @return the SearchCriteria object
@@ -155,7 +155,7 @@ public class SearchCriteriaBuilder {
    * Build the SearchCriteria object with no PageControl.
    *
    * @return the SearchCriteria object
-   * @see {@link #build(PageControl)}
+   * @see #build(PageControl)
    */
   public SearchCriteria build() {
     return build(null);
