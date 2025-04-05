@@ -4,6 +4,13 @@ import java.text.MessageFormat;
 import java.util.Arrays;
 import lombok.Builder;
 
+/**
+ * LikePattern is used to specify the pattern for the LIKE clause in a search criteria. It
+ * encapsulates the value(s) to be used in the LIKE clause and provides methods to create different
+ * types of LIKE patterns.
+ *
+ * @see ComparisonOperator#LIKE
+ */
 @Builder(access = lombok.AccessLevel.PRIVATE)
 public class LikePattern {
   private Object[] values;
