@@ -100,7 +100,7 @@ The result of this search will be `SearchResult(list=[EmployeeEntity(id=3, name=
 
 ### Optional Search Conditions
 
-If `lowerLimit` is not provided, i.e., `CriteriaInputForm(lowerLimit=null, upperLimit=10)`, the condition `ee1_0."id">=?` will be excluded from the executed SQL as follows:
+In the above example, if `lowerLimit` is not provided, i.e., `EmployeeSearchCriteria(lowerLimit=null, upperLimit=10)`, the condition `ee1_0."id">=?` will be excluded from the executed SQL as follows:
 
 ```sql
     select
@@ -131,8 +131,8 @@ public class EmployeeSearch {
     SearchCriteria criteria =
         new SearchCriteriaBuilder()
             .select("SELECT e FROM EmployeeEntity e")
-            .where("e.id", LE, form.getUpperLimit())
-            .where("e.id", GE, form.getLowerLimit())
+            .where("e.id", LE, input.getUpperLimit())
+            .where("e.id", GE, input.getLowerLimit())
             .build(pageControl);
 
     // ...
