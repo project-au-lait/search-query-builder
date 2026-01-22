@@ -170,3 +170,31 @@ If `EmployeeSearchCriteria(idLowerLimit=1, idUpperLimit=55)` and `PageControl(pa
 ```
 
 The result of this search will be `SearchResult(list=[EmployeeEntity(id=1, name=employee_1), ..., EmployeeEntity(id=55, name=employee_55)], pageResult=(count=55, start=21, end=30, lastPageNum=6, pageNums=[1, 2, 3, 4, 5]))`.
+
+### Comparison Operators
+
+You can use the following comparison operators in the `where` method:
+
+| Operator | SQL    | Description              |
+| :------- | :----- | :----------------------- |
+| `EQ`     | `=`    | Equal to                 |
+| `NE`     | `<>`   | Not equal to             |
+| `GT`     | `>`    | Greater than             |
+| `GE`     | `>=`   | Greater than or equal to |
+| `LT`     | `<`    | Less than                |
+| `LE`     | `<=`   | Less than or equal to    |
+| `LIKE`   | `LIKE` | Pattern matching         |
+| `IN`     | `IN`   | List matching            |
+
+When using `LIKE`, you can use `LikePattern` to construct the search pattern.
+
+```java
+import static dev.aulait.sqb.ComparisonOperator.*;
+import dev.aulait.sqb.LikePattern;
+
+// ...
+.where("e.name", LIKE, LikePattern.contains(input.getName()))         // "%value%"
+.where("e.code", LIKE, LikePattern.startsWith(input.getCodePrefix())) // "value%"
+.where("e.code", LIKE, LikePattern.endsWith(input.getCodeSuffix()))   // "%value"
+```
+
