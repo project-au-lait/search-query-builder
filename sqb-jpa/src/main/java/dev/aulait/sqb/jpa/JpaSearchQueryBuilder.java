@@ -15,7 +15,7 @@ public class JpaSearchQueryBuilder extends SearchQueryBuilder {
 
     return criteria
         .getSelect()
-        .replaceFirst("SELECT ", "SELECT COUNT(")
+        .replaceFirst("SELECT ", "SELECT COUNT(DISTINCT ")
         .replaceFirst(" FROM", ") FROM")
         .replaceAll("FETCH ", "");
   }

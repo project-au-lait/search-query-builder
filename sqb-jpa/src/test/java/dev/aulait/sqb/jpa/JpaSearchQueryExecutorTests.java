@@ -78,6 +78,28 @@ class JpaSearchQueryExecutorTests {
   }
 
   @Nested
+  class OneToManyTests {
+    @Test
+    void testOneToManyCount() {
+      DepartmentSearchCriteria criteria = new DepartmentSearchCriteria();
+      PageControl pageControl = PageControl.builder().pageNumber(1).pageSize(1).build();
+
+      SearchResult<DepertmentEntity> result = new DepartmentSearch().search(criteria, pageControl);
+
+      assertEquals(10, result.getPageResult().getCount());
+    }
+
+    @Test
+    void testOneToManyList() {
+      DepartmentSearchCriteria criteria = new DepartmentSearchCriteria();
+
+      SearchResult<DepertmentEntity> result = new DepartmentSearch().search(criteria);
+
+      assertEquals(10, result.getList().size());
+    }
+  }
+
+  @Nested
   class LikeTests {
     @Test
     void testLike() {
