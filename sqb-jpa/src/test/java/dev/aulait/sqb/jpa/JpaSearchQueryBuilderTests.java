@@ -23,7 +23,8 @@ class JpaSearchQueryBuilderTests {
     builder.buildQuery(cBuilder.build(new PageControl()));
 
     assertEquals(
-        "SELECT COUNT(t) FROM TestEntity t JOIN t.join j WHERE t.field = ?1 AND j.field = ?2",
+        "SELECT COUNT(DISTINCT t) FROM TestEntity t JOIN t.join j WHERE t.field = ?1 AND j.field ="
+            + " ?2",
         builder.getCountQuery());
 
     assertEquals(

@@ -13,6 +13,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Generated("dev.aulait.jeg:jpa-entity-generator")
 @Data
@@ -32,6 +33,7 @@ public class EmployeeEntity implements java.io.Serializable {
   @Column(name = "name")
   private String name;
 
+  @ToString.Exclude
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "department_id", referencedColumnName = "id")
   private DepertmentEntity depertment;
