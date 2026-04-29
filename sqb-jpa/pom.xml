@@ -48,7 +48,7 @@
   <parent>
     <groupId>dev.aulait.sqb</groupId>
     <artifactId>search-query-builder</artifactId>
-    <version>0.8</version>
+    <version>0.8.1</version>
     <relativePath>../</relativePath>
   </parent>
 
@@ -83,6 +83,11 @@
       </plugin>
     </plugins>
   </build>
+
+
+  <!-- More Project Information -->
+  <name>Search Query Builder JPA</name>
+
 
   <profiles>
     <profile>

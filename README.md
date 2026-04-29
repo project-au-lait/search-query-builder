@@ -6,7 +6,7 @@ Search Query Builder (SQB) is a lightweight Java library for constructing and ex
 - **Pagination**: Retrieve search results divided into multiple pages.
 - **Sorting**: Sort search results based on specified conditions.
 
-SQB is intended to be used with JPA in version 0.8.
+SQB is intended to be used with JPA in version 0.8.1.
 
 ## Usage
 
@@ -17,7 +17,7 @@ To use SQB, add the following dependency to your pom.xml:
     <dependency>
       <groupId>dev.aulait.sqb</groupId>
       <artifactId>sqb-jpa</artifactId>
-      <version>0.8</version>
+      <version>0.8.1</version>
     </dependency>
 ```
 
