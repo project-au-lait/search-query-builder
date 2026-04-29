@@ -6,7 +6,7 @@
 
   <groupId>dev.aulait.sqb</groupId>
   <artifactId>search-query-builder</artifactId>
-  <version>0.8.1-SNAPSHOT</version>
+  <version>0.8.1</version>
   <packaging>pom</packaging>
 
   <dependencies>
