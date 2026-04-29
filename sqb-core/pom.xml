@@ -26,4 +26,8 @@
       </testResource>
     </testResources>
   </build>
+
+  <!-- More Project Information -->
+  <name>Search Query Builder Core</name>
+
 </project>

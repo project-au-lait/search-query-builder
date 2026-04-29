@@ -118,7 +118,7 @@
   </build>
 
   <!-- More Project Information -->
-  <name>search-query-builder</name>
+  <name>Search Query Builder</name>
   <description>Search Query Builder</description>
   <url>https://aulait.dev</url>
   <licenses>
@@ -254,6 +254,7 @@
             <configuration>
               <publishingServerId>central</publishingServerId>
               <autoPublish>true</autoPublish>
+              <excludeArtifacts>sqb-container</excludeArtifacts>
             </configuration>
           </plugin>
         </plugins>

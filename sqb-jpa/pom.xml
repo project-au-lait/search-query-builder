@@ -84,6 +84,11 @@
     </plugins>
   </build>
 
+
+  <!-- More Project Information -->
+  <name>Search Query Builder JPA</name>
+
+
   <profiles>
     <profile>
       <id>gen-entity</id>
