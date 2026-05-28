@@ -149,4 +149,27 @@ class JpaSearchQueryExecutorTests {
       assertEquals(100, result.getList().size());
     }
   }
+
+  @Nested
+  class GroupByTests {
+    @Test
+    void testGroupBy() {
+      SearchCriteria criteria =
+          new SearchCriteriaBuilder()
+              .select(
+                  "SELECT NEW dev.aulait.sqb.jpa.DepartmentAggregate(d, COUNT(e))"
+                      + " FROM DepartmentEntity d LEFT JOIN d.employees e")
+              .groupBy("d")
+              .defaultOrderBy("d.id", true)
+              .build();
+
+      EntityManager em = JpaUtils.em();
+      JpaSearchQueryExecutor executor = new JpaSearchQueryExecutor();
+      SearchResult<DepartmentAggregate> result = executor.search(em, criteria);
+
+      assertEquals(10, result.getList().size());
+      assertEquals(1, result.getList().get(0).getDepartment().getId());
+      assertEquals(10L, result.getList().get(0).getEmployeeCount());
+    }
+  }
 }

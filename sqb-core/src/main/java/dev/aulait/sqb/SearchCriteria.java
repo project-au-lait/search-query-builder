@@ -10,6 +10,7 @@ import lombok.Value;
 public class SearchCriteria {
   private String select;
   private String selectCount;
+  private String groupBy;
   @Builder.Default private List<FieldCriteria> fieldCriteria = new ArrayList<>();
   private PageControl pageControl;
   @Builder.Default private List<SortOrder> sortOrders = new ArrayList<>();

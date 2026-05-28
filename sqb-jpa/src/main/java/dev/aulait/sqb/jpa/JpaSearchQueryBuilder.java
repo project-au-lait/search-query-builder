@@ -13,6 +13,15 @@ public class JpaSearchQueryBuilder extends SearchQueryBuilder {
       return criteria.getSelectCount();
     }
 
+    if (StringUtils.isNotEmpty(criteria.getGroupBy())) {
+      String select = criteria.getSelect();
+      int fromIndex = select.indexOf(" FROM");
+      return "SELECT COUNT(DISTINCT "
+          + criteria.getGroupBy()
+          + ")"
+          + select.substring(fromIndex).replaceAll("FETCH ", "");
+    }
+
     return criteria
         .getSelect()
         .replaceFirst("SELECT ", "SELECT COUNT(DISTINCT ")

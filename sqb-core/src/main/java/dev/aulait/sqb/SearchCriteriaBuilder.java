@@ -13,6 +13,7 @@ public class SearchCriteriaBuilder {
 
   private StringBuilder select = new StringBuilder();
   private String selectCount;
+  private String groupBy;
   private List<FieldCriteria> fields = new ArrayList<>();
   private List<SortOrder> sortOrders = new ArrayList<>();
 
@@ -131,6 +132,11 @@ public class SearchCriteriaBuilder {
     return this;
   }
 
+  public SearchCriteriaBuilder groupBy(String groupBy) {
+    this.groupBy = groupBy;
+    return this;
+  }
+
   /**
    * Build the SearchCriteria object. This method is used to create a SearchCriteria object that
    * contains the SQL/JPQL SELECT statement, the WHERE clause, and the ORDER BY clause.
@@ -145,6 +151,7 @@ public class SearchCriteriaBuilder {
     return SearchCriteria.builder()
         .select(select.toString())
         .selectCount(selectCount)
+        .groupBy(groupBy)
         .fieldCriteria(fields)
         .pageControl(pageControl)
         .sortOrders(sortOrders)

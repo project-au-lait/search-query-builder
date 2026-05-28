@@ -27,6 +27,11 @@ public class SearchQueryBuilder {
       count.append(" WHERE ").append(where);
     }
 
+    String groupBy = criteria.getGroupBy();
+    if (StringUtils.isNotEmpty(groupBy)) {
+      search.append(" GROUP BY ").append(groupBy);
+    }
+
     search.append(buildOrderBy(criteria.getSortOrders()));
 
     searchQuery = search.toString();
