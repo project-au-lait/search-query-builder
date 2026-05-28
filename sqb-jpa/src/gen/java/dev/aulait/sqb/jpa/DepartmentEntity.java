@@ -21,8 +21,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 @Entity
-@Table(name = "depertment")
-public class DepertmentEntity implements java.io.Serializable {
+@Table(name = "department")
+public class DepartmentEntity implements java.io.Serializable {
 
   @EqualsAndHashCode.Include
   @Id
@@ -32,6 +32,6 @@ public class DepertmentEntity implements java.io.Serializable {
   @Column(name = "name")
   private String name;
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "depertment")
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
   private Set<EmployeeEntity> employees;
 }

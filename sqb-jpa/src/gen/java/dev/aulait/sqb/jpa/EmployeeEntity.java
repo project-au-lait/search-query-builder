@@ -36,5 +36,5 @@ public class EmployeeEntity implements java.io.Serializable {
   @ToString.Exclude
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "department_id", referencedColumnName = "id")
-  private DepertmentEntity depertment;
+  private DepartmentEntity department;
 }

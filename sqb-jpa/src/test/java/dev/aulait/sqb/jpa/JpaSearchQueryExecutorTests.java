@@ -84,7 +84,7 @@ class JpaSearchQueryExecutorTests {
       DepartmentSearchCriteria criteria = new DepartmentSearchCriteria();
       PageControl pageControl = PageControl.builder().pageNumber(1).pageSize(1).build();
 
-      SearchResult<DepertmentEntity> result = new DepartmentSearch().search(criteria, pageControl);
+      SearchResult<DepartmentEntity> result = new DepartmentSearch().search(criteria, pageControl);
 
       assertEquals(10, result.getPageResult().getCount());
     }
@@ -93,7 +93,7 @@ class JpaSearchQueryExecutorTests {
     void testOneToManyList() {
       DepartmentSearchCriteria criteria = new DepartmentSearchCriteria();
 
-      SearchResult<DepertmentEntity> result = new DepartmentSearch().search(criteria);
+      SearchResult<DepartmentEntity> result = new DepartmentSearch().search(criteria);
 
       assertEquals(10, result.getList().size());
     }

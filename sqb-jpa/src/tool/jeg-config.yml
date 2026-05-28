@@ -1,6 +1,6 @@
 packages:
   dev.aulait.sqb.jpa:
-    - depertment
+    - department
     - employee
 excludedTables:
   - flyway_schema_history

@@ -10,10 +10,10 @@ import jakarta.persistence.EntityManager;
 
 public class DepartmentSearch {
 
-  public SearchResult<DepertmentEntity> search(DepartmentSearchCriteria input) {
+  public SearchResult<DepartmentEntity> search(DepartmentSearchCriteria input) {
     SearchCriteria criteria =
         new SearchCriteriaBuilder()
-            .select("SELECT d FROM DepertmentEntity d LEFT JOIN FETCH d.employees")
+            .select("SELECT d FROM DepartmentEntity d LEFT JOIN FETCH d.employees")
             .where("d.id", LE, input.getIdUpperLimit())
             .build();
 
@@ -23,11 +23,11 @@ public class DepartmentSearch {
     return executor.search(em, criteria);
   }
 
-  public SearchResult<DepertmentEntity> search(
+  public SearchResult<DepartmentEntity> search(
       DepartmentSearchCriteria input, PageControl pageControl) {
     SearchCriteria criteria =
         new SearchCriteriaBuilder()
-            .select("SELECT d FROM DepertmentEntity d LEFT JOIN FETCH d.employees")
+            .select("SELECT d FROM DepartmentEntity d LEFT JOIN FETCH d.employees")
             .where("d.id", LE, input.getIdUpperLimit())
             .build(pageControl);
 
