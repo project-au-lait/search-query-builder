@@ -161,13 +161,14 @@ class JpaSearchQueryExecutorTests {
                       + " FROM DepartmentEntity d LEFT JOIN d.employees e")
               .groupBy("d")
               .defaultOrderBy("d.id", true)
-              .build();
+              .build(PageControl.builder().pageNumber(1).pageSize(100).build());
 
       EntityManager em = JpaUtils.em();
       JpaSearchQueryExecutor executor = new JpaSearchQueryExecutor();
       SearchResult<DepartmentAggregate> result = executor.search(em, criteria);
 
       assertEquals(10, result.getList().size());
+      assertEquals(10, result.getPageResult().getCount());
       assertEquals(1, result.getList().get(0).getDepartment().getId());
       assertEquals(10L, result.getList().get(0).getEmployeeCount());
     }
