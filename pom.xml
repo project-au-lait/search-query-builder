@@ -76,10 +76,10 @@
     <db.password>sqb</db.password>
     <db.host>localhost</db.host>
     <db.name>sqb</db.name>
-    <db.port.host>5452</db.port.host>
     <db.port.container>5432</db.port.container>
     <db.schema>sqb</db.schema>
     <db.username>sqb</db.username>
+    <env.properties>${maven.multiModuleProjectDirectory}/env.properties</env.properties>
 
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
@@ -90,6 +90,26 @@
     <defaultGoal>antrun:run</defaultGoal>
 
     <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>properties-maven-plugin</artifactId>
+        <version>1.2.1</version>
+        <executions>
+          <execution>
+            <id>load-env-properties</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>read-project-properties</goal>
+            </goals>
+            <configuration>
+              <quiet>true</quiet>
+              <files>
+                <file>${env.properties}</file>
+              </files>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-antrun-plugin</artifactId>
@@ -153,6 +173,39 @@
   </distributionManagement>
 
   <profiles>
+    <profile>
+      <id>generate-env-properties</id>
+      <activation>
+        <file>
+          <missing>${env.properties}</missing>
+        </file>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>build-helper-maven-plugin</artifactId>
+            <version>3.6.0</version>
+            <executions>
+              <execution>
+                <id>reserve-db-port</id>
+                <phase>initialize</phase>
+                <goals>
+                  <goal>reserve-network-port</goal>
+                </goals>
+                <configuration>
+                  <portNames>
+                    <portName>db.port.host</portName>
+                  </portNames>
+                  <outputFile>${env.properties}</outputFile>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
     <profile>
       <id>analyze</id>
       <build>
