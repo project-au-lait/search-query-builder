@@ -1,3 +1,4 @@
 target
 env.properties
 .vscode/settings.json
+sqb-container/.env
