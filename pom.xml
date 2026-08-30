@@ -91,26 +91,6 @@
 
     <plugins>
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>properties-maven-plugin</artifactId>
-        <version>1.3.0</version>
-        <executions>
-          <execution>
-            <id>load-env-properties</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>read-project-properties</goal>
-            </goals>
-            <configuration>
-              <quiet>true</quiet>
-              <files>
-                <file>${env.properties}</file>
-              </files>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-antrun-plugin</artifactId>
         <version>3.2.0</version>
@@ -198,6 +178,57 @@
                     <portName>db.port.host</portName>
                   </portNames>
                   <outputFile>${env.properties}</outputFile>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>properties-maven-plugin</artifactId>
+            <version>1.3.0</version>
+            <executions>
+              <execution>
+                <id>load-generated-env-properties</id>
+                <phase>initialize</phase>
+                <goals>
+                  <goal>read-project-properties</goal>
+                </goals>
+                <configuration>
+                  <files>
+                    <file>${env.properties}</file>
+                  </files>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <id>load-env-properties</id>
+      <activation>
+        <file>
+          <exists>${env.properties}</exists>
+        </file>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>properties-maven-plugin</artifactId>
+            <version>1.3.0</version>
+            <executions>
+              <execution>
+                <id>load-existing-env-properties</id>
+                <phase>initialize</phase>
+                <goals>
+                  <goal>read-project-properties</goal>
+                </goals>
+                <configuration>
+                  <files>
+                    <file>${env.properties}</file>
+                  </files>
                 </configuration>
               </execution>
             </executions>
