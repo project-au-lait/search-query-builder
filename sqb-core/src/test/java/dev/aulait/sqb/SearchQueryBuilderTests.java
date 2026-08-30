@@ -61,4 +61,19 @@ class SearchQueryBuilderTests {
 
     assertEquals(" ORDER BY field ASC", orderBy);
   }
+
+  @Test
+  void testGroupBy() {
+    SearchCriteria criteria =
+        new SearchCriteriaBuilder()
+            .select("SELECT category FROM item")
+            .selectCount("SELECT COUNT(DISTINCT category) FROM item")
+            .groupBy("category")
+            .build();
+
+    builder.buildQuery(criteria);
+
+    assertEquals("SELECT category FROM item GROUP BY category", builder.getSearchQuery());
+    assertEquals("SELECT COUNT(DISTINCT category) FROM item", builder.getCountQuery());
+  }
 }
