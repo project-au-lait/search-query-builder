@@ -13,13 +13,13 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>1.18.36</version>
+      <version>1.18.46</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.eclipse.microprofile.openapi</groupId>
       <artifactId>microprofile-openapi-api</artifactId>
-      <version>3.1.2</version>
+      <version>4.1.1</version>
       <scope>provided</scope>
     </dependency>
 
@@ -52,7 +52,7 @@
       <dependency>
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
-        <version>5.11.4</version>
+        <version>6.1.3</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -71,7 +71,7 @@
     <db.image>postgres</db.image>
     <db.jdbc.groupId>org.postgresql</db.jdbc.groupId>
     <db.jdbc.artifactId>postgresql</db.jdbc.artifactId>
-    <db.jdbc.version>42.7.2</db.jdbc.version>
+    <db.jdbc.version>42.7.13</db.jdbc.version>
     <db.jdbc.url>jdbc:postgresql://${db.host}:${db.port.host}/${db.name}?currentSchema=${db.schema}</db.jdbc.url>
     <db.password>sqb</db.password>
     <db.host>localhost</db.host>
@@ -93,7 +93,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>properties-maven-plugin</artifactId>
-        <version>1.2.1</version>
+        <version>1.3.0</version>
         <executions>
           <execution>
             <id>load-env-properties</id>
@@ -185,7 +185,7 @@
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>build-helper-maven-plugin</artifactId>
-            <version>3.6.0</version>
+            <version>3.6.1</version>
             <executions>
               <execution>
                 <id>reserve-db-port</id>
@@ -213,7 +213,7 @@
           <plugin>
             <groupId>org.jacoco</groupId>
             <artifactId>jacoco-maven-plugin</artifactId>
-            <version>0.8.12</version>
+            <version>0.8.15</version>
             <executions>
               <execution>
                 <goals>
@@ -302,7 +302,7 @@
           <plugin>
             <groupId>org.sonatype.central</groupId>
             <artifactId>central-publishing-maven-plugin</artifactId>
-            <version>0.5.0</version>
+            <version>0.11.0</version>
             <extensions>true</extensions>
             <configuration>
               <publishingServerId>central</publishingServerId>
