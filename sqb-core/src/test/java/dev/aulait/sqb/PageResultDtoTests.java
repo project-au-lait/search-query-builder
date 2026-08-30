@@ -3,6 +3,7 @@ package dev.aulait.sqb;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.converter.ConvertWith;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -39,5 +40,11 @@ class PageResultTests {
     assertEquals(expectedEnd, result.getEnd());
     assertEquals(expectedLastPageNum, result.getLastPageNum());
     assertArrayEquals(expectedPageNums, result.getPageNums());
+  }
+
+  @Test
+  void endAvoidsIntegerOverflow() {
+    assertEquals(
+        4_294_967_293L, PageResult.end(4_294_967_294L, Integer.MAX_VALUE, Integer.MAX_VALUE));
   }
 }
