@@ -19,14 +19,14 @@ public class JpaSearchQueryBuilder extends SearchQueryBuilder {
       return "SELECT COUNT(DISTINCT "
           + criteria.getGroupBy()
           + ")"
-          + select.substring(fromIndex).replaceAll("FETCH ", "");
+          + select.substring(fromIndex).replace("FETCH ", "");
     }
 
     return criteria
         .getSelect()
         .replaceFirst("SELECT ", "SELECT COUNT(DISTINCT ")
         .replaceFirst(" FROM", ") FROM")
-        .replaceAll("FETCH ", "");
+        .replace("FETCH ", "");
   }
 
   @Override
