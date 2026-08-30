@@ -1,0 +1,18 @@
+{
+  "[java]": {
+    "editor.defaultFormatter": "josevseb.google-java-format-for-vs-code"
+  },
+  "editor.formatOnSave": true,
+  "sqltools.connections": [
+    {
+      "database": "${db.name}",
+      "driver": "PostgreSQL",
+      "name": "${db.name}",
+      "password": "${db.password}",
+      "port": "${db.port.host}",
+      "previewLimit": 50,
+      "server": "${db.host}",
+      "username": "${db.username}"
+    }
+  ]
+}
